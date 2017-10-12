@@ -14,18 +14,27 @@ source:
     - https://cran.r-project.org/src/contrib/Archive/TH.data/TH.data_{{ version }}.tar.gz
   sha256: 478f109fcc1226500ead8e3bd6e047cecde2294fde4df8ec216d38313db79a9d
 
+
+  # patches:
+   # List any patch files here
+   # - fix.patch
+
 build:
+  # If this is a new build for the same version, increment the build number.
   number: 0
-  skip: true  # [win32]
+
+  # This is required to make R link correctly on Linux.
   rpaths:
     - lib/R/lib/
     - lib/
 
+# Suggests: dplyr, gdata, plyr
 requirements:
   build:
     - r-base
     - r-mass
     - r-survival
+
   run:
     - r-base
     - r-mass
@@ -33,8 +42,15 @@ requirements:
 
 test:
   commands:
-    - $R -e "library('TH.data')"  # [not win]
+    # You can put additional test commands to be run here.
+    - $R -e "library('TH.data')"           # [not win]
     - "\"%R%\" -e \"library('TH.data')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
 
 about:
   home: https://CRAN.R-project.org/package=TH.data
@@ -46,3 +62,27 @@ extra:
   recipe-maintainers:
     - johanneskoester
     - bgruening
+    - mingwandroid
+
+# The original CRAN metadata for this package was:
+
+# Package: TH.data
+# Title: TH's Data Archive
+# Date: 2017-01-23
+# Version: 1.0-8
+# Authors@R: c(person("Torsten", "Hothorn", role = c("aut", "cre"), email = "Torsten.Hothorn@R-project.org"))
+# Description: Contains data sets used in other packages Torsten Hothorn maintains.
+# Depends: R (>= 2.10.0), survival, MASS
+# Suggests: dplyr, gdata, plyr
+# LazyData: yes
+# License: GPL-3
+# NeedsCompilation: no
+# Packaged: 2017-01-23 13:13:20 UTC; hothorn
+# Author: Torsten Hothorn [aut, cre]
+# Maintainer: Torsten Hothorn <Torsten.Hothorn@R-project.org>
+# Repository: CRAN
+# Date/Publication: 2017-01-23 21:08:04
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
